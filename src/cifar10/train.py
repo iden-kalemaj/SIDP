@@ -11,7 +11,7 @@ from .dataset import data_loaders, axi_loader
 def train(model, criterion, optimizer, device, train_loader, clip, scheduler_lr,
           noise_multiplier, batch_size, axi_x):
     model.train()
-    for x, y in train_loader:
+    for x, y in tqdm(train_loader):
         _lr = optimizer.param_groups[0]['lr']
         std_params = _lr * clip * noise_multiplier / batch_size
         x = torch.cat([x.to(device), axi_x], dim=0)
